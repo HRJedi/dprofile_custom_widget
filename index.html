@@ -10,18 +10,16 @@
     @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap");
 
     :root {
+      --frame-height: 340px;
       --bg: #13403B;
-      --card-bg: rgba(255, 255, 255, 0.08);
-      --card-border: rgba(255, 255, 255, 0.16);
       --text: #f5f7fb;
       --muted: rgba(245, 247, 251, 0.72);
-      --button-bg: rgba(255, 255, 255, 0.09);
-      --button-bg-hover: rgba(255, 255, 255, 0.16);
-      --button-border: rgba(255, 255, 255, 0.18);
-      --shadow: 0 10px 10px rgba(0, 0, 0, 0.13);
-      --radius-xl: 28px;
-      --radius-lg: 20px;
-      --radius-md: 14px;
+      --glass-bg: rgba(255, 255, 255, 0.18);
+      --glass-border: rgba(255, 255, 255, 0.34);
+      --button-bg: rgba(255, 255, 255, 0.14);
+      --button-bg-hover: rgba(255, 255, 255, 0.24);
+      --button-border: rgba(255, 255, 255, 0.26);
+      --shadow: 0 18px 42px rgba(0, 0, 0, 0.24);
       --transition: 180ms ease;
     }
 
@@ -32,19 +30,16 @@
     html,
     body {
       width: 100%;
+      height: var(--frame-height);
+      min-height: var(--frame-height);
+      max-height: var(--frame-height);
       margin: 0;
       padding: 0;
       overflow: hidden;
+      background: transparent;
     }
 
     body {
-      display: grid;
-      place-items: center;
-      padding: 24px;
-      background:
-        radial-gradient(circle at top left, rgba(255, 255, 255, 0.16), transparent 34%),
-        radial-gradient(circle at bottom right, rgba(72, 191, 162, 0.28), transparent 36%),
-        var(--bg);
       color: var(--text);
       font-family:
         "Inter",
@@ -61,64 +56,112 @@
       text-decoration: none;
     }
 
-    code {
-      color: var(--text);
-      font-family:
-        "Inter",
-        ui-sans-serif,
-        system-ui,
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        sans-serif;
-      font-size: inherit;
+    .contact-page {
+      position: relative;
+      width: 100%;
+      height: var(--frame-height);
+      padding: 12px;
+      overflow: hidden;
+      background: var(--bg);
+      isolation: isolate;
+    }
+
+    .contact-page::before,
+    .contact-page::after {
+      position: absolute;
+      border-radius: 999px;
+      content: "";
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .contact-page::before {
+      top: -88px;
+      left: -78px;
+      width: 280px;
+      height: 280px;
+      background: rgba(255, 255, 255, 0.24);
+      filter: blur(20px);
+    }
+
+    .contact-page::after {
+      right: -120px;
+      bottom: -128px;
+      width: 360px;
+      height: 360px;
+      background: rgba(72, 191, 162, 0.42);
+      filter: blur(24px);
     }
 
     .contact-widget {
       position: relative;
       width: 100%;
-      max-width: 680px;
-      min-height: 0;
-      padding: 22px;
+      height: calc(var(--frame-height) - 24px);
+      max-height: calc(var(--frame-height) - 24px);
+      padding: 20px;
       overflow: hidden;
-      border: 1px solid var(--card-border);
+      border: 1px solid var(--glass-border);
       border-radius: 24px;
       background:
-        radial-gradient(circle at top left, rgba(255, 255, 255, 0.16), transparent 34%),
-        radial-gradient(circle at bottom right, rgba(72, 191, 162, 0.28), transparent 36%),
-        rgba(255, 255, 255, 0.08);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
+        linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.24),
+          rgba(255, 255, 255, 0.11) 44%,
+          rgba(255, 255, 255, 0.16)
+        );
+      box-shadow:
+        var(--shadow),
+        inset 0 1px 0 rgba(255, 255, 255, 0.38),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.10);
+      backdrop-filter: blur(34px) saturate(170%) contrast(108%);
+      -webkit-backdrop-filter: blur(34px) saturate(170%) contrast(108%);
+    }
+
+    .contact-widget::before {
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background:
+        linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.42) 0%,
+          rgba(255, 255, 255, 0.13) 34%,
+          rgba(255, 255, 255, 0.05) 58%,
+          rgba(255, 255, 255, 0.18) 100%
+        );
+      content: "";
+      pointer-events: none;
+      z-index: 0;
     }
 
     .contact-widget__gif-corner {
       position: absolute;
-      top: 24px;
-      right: 24px;
-      width: clamp(80px, 18vw, 80px);
+      top: 18px;
+      right: 18px;
+      width: 80px;
       height: auto;
-      border-radius: 20px;
+      border-radius: 18px;
       opacity: 0.92;
       pointer-events: none;
-      z-index: 1;
+      z-index: 3;
     }
 
     .contact-widget__header {
       position: relative;
       z-index: 2;
       display: grid;
-      gap: 8px;
-      max-width: calc(100% - 160px);
-      margin-bottom: 24px;
+      gap: 6px;
+      max-width: calc(100% - 112px);
+      margin-bottom: 16px;
     }
 
     .contact-widget__eyebrow {
+      min-height: 0;
       margin: 0;
       color: var(--muted);
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 500;
-      line-height: 1.45;
+      line-height: 1.2;
       letter-spacing: 0;
       text-transform: none;
     }
@@ -132,38 +175,48 @@
         -apple-system,
         "Segoe UI",
         sans-serif;
-      font-size: clamp(28px, 5vw, 40px);
+      font-size: clamp(27px, 4vw, 38px);
       font-weight: 700;
       line-height: 1.04;
       letter-spacing: -0.04em;
     }
 
     .contact-widget__text {
-      max-width: 600px;
+      max-width: 520px;
       margin: 0;
       color: var(--muted);
-      font-size: 16px;
+      font-size: 14px;
       font-weight: 400;
-      line-height: 1.6;
+      line-height: 1.42;
     }
 
     .contact-grid {
+      position: relative;
+      z-index: 2;
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
+      gap: 10px;
     }
 
     .contact-button {
       position: relative;
       display: flex;
       align-items: center;
-      gap: 14px;
-      min-height: 78px;
-      padding: 18px;
+      gap: 12px;
+      min-height: 58px;
+      padding: 12px;
       overflow: hidden;
       border: 1px solid var(--button-border);
-      border-radius: var(--radius-lg);
-      background: var(--button-bg);
+      border-radius: 16px;
+      background:
+        linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.18),
+          rgba(255, 255, 255, 0.10)
+        );
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.22),
+        0 8px 20px rgba(0, 0, 0, 0.08);
       transition:
         transform var(--transition),
         border-color var(--transition),
@@ -173,9 +226,9 @@
 
     .contact-button::after {
       position: absolute;
-      inset: auto 16px 16px auto;
-      width: 84px;
-      height: 84px;
+      inset: auto 12px 12px auto;
+      width: 72px;
+      height: 72px;
       border-radius: 999px;
       background: var(--accent, rgba(255, 255, 255, 0.22));
       opacity: 0.14;
@@ -190,8 +243,13 @@
     .contact-button:hover,
     .contact-button:focus-visible {
       transform: translateY(-2px);
-      border-color: rgba(255, 255, 255, 0.3);
-      background: var(--button-bg-hover);
+      border-color: rgba(255, 255, 255, 0.42);
+      background:
+        linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.26),
+          rgba(255, 255, 255, 0.15)
+        );
       outline: none;
     }
 
@@ -204,16 +262,19 @@
     .contact-button__icon {
       display: grid;
       place-items: center;
-      flex: 0 0 44px;
-      width: 44px;
-      height: 44px;
-      border-radius: var(--radius-md);
-      background: rgba(255, 255, 255, 0.1);
+      flex: 0 0 38px;
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.14);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.18),
+        0 6px 14px rgba(0, 0, 0, 0.08);
     }
 
     .contact-button__icon svg {
-      width: 24px;
-      height: 24px;
+      width: 21px;
+      height: 21px;
     }
 
     .contact-button__content {
@@ -222,8 +283,8 @@
 
     .contact-button__label {
       display: block;
-      margin-bottom: 4px;
-      font-size: 16px;
+      margin-bottom: 2px;
+      font-size: 15px;
       font-weight: 700;
       line-height: 1.2;
     }
@@ -232,157 +293,217 @@
       display: block;
       overflow: hidden;
       color: var(--muted);
-      font-size: 14px;
+      font-size: 12px;
       font-weight: 400;
-      line-height: 1.35;
+      line-height: 1.25;
       text-overflow: ellipsis;
       white-space: nowrap;
     }
 
-    .contact-widget__footer {
-      margin-top: 18px;
-      color: var(--muted);
-      font-size: 13px;
-      font-weight: 400;
-      line-height: 1.5;
-    }
-
     @media (max-width: 620px) {
-      body {
-        padding: 14px;
+      :root {
+        --frame-height: 340px;
+      }
+
+      .contact-page {
+        padding: 10px;
       }
 
       .contact-widget {
-        padding: 20px;
+        height: calc(var(--frame-height) - 20px);
+        max-height: calc(var(--frame-height) - 20px);
+        padding: 16px;
         border-radius: 22px;
       }
 
       .contact-widget__gif-corner {
         top: 14px;
         right: 14px;
-        width: 86px;
-        border-radius: 16px;
-        opacity: 0.78;
+        width: 70px;
+        border-radius: 14px;
+        opacity: 0.82;
       }
 
       .contact-widget__header {
-        max-width: calc(100% - 96px);
+        max-width: calc(100% - 86px);
+        margin-bottom: 14px;
+      }
+
+      .contact-widget__title {
+        font-size: 25px;
+      }
+
+      .contact-widget__text {
+        font-size: 13px;
+        line-height: 1.35;
       }
 
       .contact-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
       }
 
       .contact-button {
-        min-height: 72px;
+        min-height: 56px;
+        padding: 10px;
+        gap: 8px;
+        border-radius: 14px;
+      }
+
+      .contact-button__icon {
+        flex-basis: 34px;
+        width: 34px;
+        height: 34px;
+        border-radius: 10px;
+      }
+
+      .contact-button__icon svg {
+        width: 19px;
+        height: 19px;
+      }
+
+      .contact-button__label {
+        font-size: 13px;
+      }
+
+      .contact-button__value {
+        font-size: 11px;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .contact-widget__text {
+        max-width: 240px;
+      }
+
+      .contact-grid {
+        gap: 7px;
+      }
+
+      .contact-button {
+        min-height: 54px;
+        padding: 9px;
+      }
+
+      .contact-button__icon {
+        flex-basis: 32px;
+        width: 32px;
+        height: 32px;
+      }
+
+      .contact-button__label {
+        font-size: 12px;
+      }
+
+      .contact-button__value {
+        font-size: 10px;
       }
     }
   </style>
 </head>
 
 <body>
-  <main class="contact-widget" aria-labelledby="contact-title">
-    <img
-      class="contact-widget__gif-corner"
-      src="./assets/logo.gif"
-      alt=""
-      aria-hidden="true"
-      loading="lazy"
-    >
-
-    <header class="contact-widget__header">
-      <p class="contact-widget__eyebrow"></p>
-      <h1 class="contact-widget__title" id="contact-title">Давайте обсудим проект</h1>
-      <p class="contact-widget__text">
-        Выберите удобный способ связи.<br>Кнопки отроют мессенджер или почтовый клиент.
-      </p>
-    </header>
-
-    <section class="contact-grid" aria-label="способы связи">
-      <a
-        class="contact-button"
-        id="telegram-link"
-        href="#"
-        target="_blank"
-        rel="noopener noreferrer"
-        style="--accent: #2aabee;"
+  <div class="contact-page">
+    <main class="contact-widget" aria-labelledby="contact-title">
+      <img
+        class="contact-widget__gif-corner"
+        src="./assets/logo.gif"
+        alt=""
+        aria-hidden="true"
+        loading="lazy"
       >
-        <span class="contact-button__icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none">
-            <path d="M21.7 3.3 2.9 10.6c-1.3.5-1.3 1.2-.2 1.5l4.8 1.5 1.8 5.5c.2.7.1 1 .8 1 .5 0 .8-.2 1.1-.5l2.6-2.5 5.3 3.9c1 .5 1.7.3 1.9-.9l3.4-16c.4-1.4-.5-2-1.7-1.5Z" fill="currentColor"/>
-            <path d="m7.7 13.3 11.1-7c.5-.3 1-.1.6.2l-9 8.1-.3 3.5-1.7-5.2-.7.4Z" fill="rgba(19, 64, 59, 0.62)"/>
-          </svg>
-        </span>
-        <span class="contact-button__content">
-          <span class="contact-button__label">Telegram</span>
-          <span class="contact-button__value" id="telegram-value">@username</span>
-        </span>
-      </a>
 
-      <a
-        class="contact-button"
-        id="whatsapp-link"
-        href="#"
-        target="_blank"
-        rel="noopener noreferrer"
-        style="--accent: #25d366;"
-      >
-        <span class="contact-button__icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none">
-            <path d="M12 2.3A9.4 9.4 0 0 0 4 16.6L2.7 21.7l5.2-1.4A9.4 9.4 0 1 0 12 2.3Z" fill="currentColor"/>
-            <path d="M9.3 7.2c-.2-.5-.4-.5-.6-.5h-.5c-.2 0-.5.1-.7.3-.3.3-.9.9-.9 2.1s.9 2.4 1 2.6c.1.2 1.8 2.9 4.5 4 2.2.9 2.7.7 3.2.7s1.6-.7 1.8-1.3c.2-.7.2-1.2.2-1.3-.1-.1-.2-.2-.5-.4l-1.8-.9c-.3-.1-.5-.2-.7.1l-.7.9c-.1.2-.3.2-.6.1-.3-.1-1.1-.4-2-1.2-.7-.7-1.2-1.5-1.4-1.8-.1-.3 0-.4.1-.6l.4-.4c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.1Z" fill="rgba(19, 64, 59, 0.68)"/>
-          </svg>
-        </span>
-        <span class="contact-button__content">
-          <span class="contact-button__label">WhatsApp</span>
-          <span class="contact-button__value" id="whatsapp-value">+7 999 000-00-00</span>
-        </span>
-      </a>
+      <header class="contact-widget__header">
+        <p class="contact-widget__eyebrow"></p>
+        <h1 class="contact-widget__title" id="contact-title">Давайте обсудим проект</h1>
+        <p class="contact-widget__text">
+          Выберите удобный способ связи.<br>Кнопки откроют мессенджер или почтовый клиент.
+        </p>
+      </header>
 
-      <a
-        class="contact-button"
-        id="email-link"
-        href="#"
-        style="--accent: #ffb84d;"
-      >
-        <span class="contact-button__icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none">
-            <path d="M4.5 6.5h15A1.5 1.5 0 0 1 21 8v8a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 16V8a1.5 1.5 0 0 1 1.5-1.5Z" stroke="currentColor" stroke-width="2"/>
-            <path d="m4 8 8 5.5L20 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </span>
-        <span class="contact-button__content">
-          <span class="contact-button__label">Email</span>
-          <span class="contact-button__value" id="email-value">hello@example.com</span>
-        </span>
-      </a>
+      <section class="contact-grid" aria-label="Способы связи">
+        <a
+          class="contact-button"
+          id="telegram-link"
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+          style="--accent: #2aabee;"
+        >
+          <span class="contact-button__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M21.7 3.3 2.9 10.6c-1.3.5-1.3 1.2-.2 1.5l4.8 1.5 1.8 5.5c.2.7.1 1 .8 1 .5 0 .8-.2 1.1-.5l2.6-2.5 5.3 3.9c1 .5 1.7.3 1.9-.9l3.4-16c.4-1.4-.5-2-1.7-1.5Z" fill="currentColor"/>
+              <path d="m7.7 13.3 11.1-7c.5-.3 1-.1.6.2l-9 8.1-.3 3.5-1.7-5.2-.7.4Z" fill="rgba(19, 64, 59, 0.62)"/>
+            </svg>
+          </span>
+          <span class="contact-button__content">
+            <span class="contact-button__label">Telegram</span>
+            <span class="contact-button__value" id="telegram-value">@username</span>
+          </span>
+        </a>
 
-      <a
-        class="contact-button"
-        id="phone-link"
-        href="#"
-        style="--accent: #8c7cff;"
-      >
-        <span class="contact-button__icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none">
-            <path d="M8.1 5.1 9.5 8c.2.5.1 1-.3 1.4l-1 1c.8 1.7 2.1 3 3.8 3.8l1-1c.4-.4 1-.5 1.4-.3l2.9 1.4c.6.3.9.9.8 1.5l-.5 2.4c-.1.7-.7 1.2-1.5 1.2C9.9 19.5 4.5 14.1 4.5 7.9c0-.8.5-1.4 1.2-1.5l2.4-.5c.6-.1 1.2.2 1.5.8Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </span>
-        <span class="contact-button__content">
-          <span class="contact-button__label">Телефон</span>
-          <span class="contact-button__value" id="phone-value">+7 999 000-00-00</span>
-        </span>
-      </a>
-    </section>
+        <a
+          class="contact-button"
+          id="whatsapp-link"
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+          style="--accent: #25d366;"
+        >
+          <span class="contact-button__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M12 2.3A9.4 9.4 0 0 0 4 16.6L2.7 21.7l5.2-1.4A9.4 9.4 0 1 0 12 2.3Z" fill="currentColor"/>
+              <path d="M9.3 7.2c-.2-.5-.4-.5-.6-.5h-.5c-.2 0-.5.1-.7.3-.3.3-.9.9-.9 2.1s.9 2.4 1 2.6c.1.2 1.8 2.9 4.5 4 2.2.9 2.7.7 3.2.7s1.6-.7 1.8-1.3c.2-.7.2-1.2.2-1.3-.1-.1-.2-.2-.5-.4l-1.8-.9c-.3-.1-.5-.2-.7.1l-.7.9c-.1.2-.3.2-.6.1-.3-.1-1.1-.4-2-1.2-.7-.7-1.2-1.5-1.4-1.8-.1-.3 0-.4.1-.6l.4-.4c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.1Z" fill="rgba(19, 64, 59, 0.68)"/>
+            </svg>
+          </span>
+          <span class="contact-button__content">
+            <span class="contact-button__label">WhatsApp</span>
+            <span class="contact-button__value" id="whatsapp-value">+7 999 000-00-00</span>
+          </span>
+        </a>
 
-    <p class="contact-widget__footer">
-    </p>
-  </main>
+        <a
+          class="contact-button"
+          id="email-link"
+          href="#"
+          style="--accent: #ffb84d;"
+        >
+          <span class="contact-button__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M4.5 6.5h15A1.5 1.5 0 0 1 21 8v8a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 16V8a1.5 1.5 0 0 1 1.5-1.5Z" stroke="currentColor" stroke-width="2"/>
+              <path d="m4 8 8 5.5L20 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+          <span class="contact-button__content">
+            <span class="contact-button__label">Email</span>
+            <span class="contact-button__value" id="email-value">hello@example.com</span>
+          </span>
+        </a>
+
+        <a
+          class="contact-button"
+          id="phone-link"
+          href="#"
+          style="--accent: #8c7cff;"
+        >
+          <span class="contact-button__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M8.1 5.1 9.5 8c.2.5.1 1-.3 1.4l-1 1c.8 1.7 2.1 3 3.8 3.8l1-1c.4-.4 1-.5 1.4-.3l2.9 1.4c.6.3.9.9.8 1.5l-.5 2.4c-.1.7-.7 1.2-1.5 1.2C9.9 19.5 4.5 14.1 4.5 7.9c0-.8.5-1.4 1.2-1.5l2.4-.5c.6-.1 1.2.2 1.5.8Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+          <span class="contact-button__content">
+            <span class="contact-button__label">Телефон</span>
+            <span class="contact-button__value" id="phone-value">+7 999 000-00-00</span>
+          </span>
+        </a>
+      </section>
+    </main>
+  </div>
 
   <script>
     const contacts = {
       telegramUsername: "gd_kirilova",
-      whatsappPhone: "7 (927) 418-19-96",
+      whatsappPhone: "+7 (927) 418-19-96",
       email: "gd@kkirilova.ru",
       phone: "+7 (927) 418-19-96",
       whatsappText: "Здравствуйте! Хочу обсудить проект.",
