@@ -73,8 +73,10 @@
     }
 
     .contact-widget {
+      position: relative;
       width: min(100%, 760px);
       padding: 28px;
+      overflow: hidden;
       border: 1px solid var(--card-border);
       border-radius: var(--radius-xl);
       background: var(--card-bg);
@@ -83,9 +85,24 @@
       -webkit-backdrop-filter: blur(18px);
     }
 
+    .contact-widget__gif-corner {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      width: clamp(80px, 18vw, 80px);
+      height: auto;
+      border-radius: 20px;
+      opacity: 0.92;
+      pointer-events: none;
+      z-index: 1;
+    }
+
     .contact-widget__header {
+      position: relative;
+      z-index: 2;
       display: grid;
       gap: 8px;
+      max-width: calc(100% - 160px);
       margin-bottom: 24px;
     }
 
@@ -102,14 +119,13 @@
     .contact-widget__title {
       margin: 0;
       font-family:
-        "Inter",
+        BlinkMacSystemFont,
         ui-sans-serif,
         system-ui,
         -apple-system,
-        BlinkMacSystemFont,
         "Segoe UI",
         sans-serif;
-      font-size: clamp(28px, 5vw, 48px);
+      font-size: clamp(28px, 5vw, 40px);
       font-weight: 700;
       line-height: 1.04;
       letter-spacing: -0.04em;
@@ -234,6 +250,18 @@
         border-radius: 22px;
       }
 
+      .contact-widget__gif-corner {
+        top: 14px;
+        right: 14px;
+        width: 86px;
+        border-radius: 16px;
+        opacity: 0.78;
+      }
+
+      .contact-widget__header {
+        max-width: calc(100% - 96px);
+      }
+
       .contact-grid {
         grid-template-columns: 1fr;
       }
@@ -247,11 +275,19 @@
 
 <body>
   <main class="contact-widget" aria-labelledby="contact-title">
+    <img
+      class="contact-widget__gif-corner"
+      src="./assets/logo.gif"
+      alt=""
+      aria-hidden="true"
+      loading="lazy"
+    >
+
     <header class="contact-widget__header">
       <p class="contact-widget__eyebrow"></p>
       <h1 class="contact-widget__title" id="contact-title">Давайте обсудим проект</h1>
       <p class="contact-widget__text">
-        Выберите удобный способ связи.
+        Выберите удобный способ связи.<br>Кнопки отроют мессенджер или почтовый клиент.
       </p>
     </header>
 
